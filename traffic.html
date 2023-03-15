@@ -1,0 +1,84 @@
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+</head>
+
+<body>
+    <h1>Test a Traffic Sign Classifier in your browser!</h1>
+    
+    <div>
+        <span style="padding:10px;">
+            <canvas id="canvas" class="with_border" width="280" height="280"></canvas>
+        </span>
+
+        <span style="max-width: 700px;padding-top: 10px;">
+            <p id="prediction" class="with_border rounded highlighted" style="width: 550px;">
+                 Prediction will appear here when you click the classify button 
+            </p>
+
+            <div style="padding:10px 0;">
+                <span>
+                    <input type="button" class="button" value="Classify" id="classify-button">
+                </span>
+                <span style="padding-left: 10px;">
+                    <input type="button" class="button" value="Clear" id="clear-button">
+                </span>
+            </div>
+
+            <p class="with_border rounded" style="width: 560px;text-align: center;"> You can also draw with a color:
+                <input type="radio" id="red" name="color_radio" value="red" checked>
+                <label for="red">Red</label>
+                <input type="radio" id="blue" name="color_radio" value="blue">
+                <label for="blue">Blue</label>
+                <input type="radio" id="black" name="color_radio" value="black">
+                <label for="black">Black</label>
+                <input type="radio" id="green" name="color_radio" value="green">
+                <label for="green">Green</label>
+                <input type="radio" id="white" name="color_radio" value="white">
+                <label for="white">White</label>
+            </p>
+
+            <h3 style="text-align: center;"> 
+                Click on the image below to copy that traffic sign to the canvas. 
+                <br> Then click the classify button. 
+            </h3>
+        </span>
+    </div>
+
+    <p></p>
+
+    <div style="padding:10px;">
+        <img id="img-43-classes" src="images/GTSRB-43-classes.jpg"  class="with_border" width="867" height="495">
+    </div>
+
+    <p></p>
+
+    <div style="padding-left:10px;padding-bottom: 10px;">
+        <div class="with_border rounded" style="width: 80%;max-width: 650px;">
+            <h3>You can also upload any image and then copy it to the canvas:</h3>
+            
+            <p></p>
+            
+            <div>         
+                <input type='file' class="button"/>
+                <img class="image" id="myImg" src="#"  width="80" height="80">
+                <input type="button" class="button" value="Copy Image" id="copy_image">
+            </div>
+        </div>
+    </div> 
+    
+    <hr>
+    
+    <p style="text-align: center;color: gray;">
+        Made by Martin Szyld in 2023. I built this page as a first tensorflow.js project. 
+        For a bit of context and to see how this is working: 
+        <a href="https://github.com/mszyld/Traffic-Sign-Classifier-in-Browser" target="_blank" style="vertical-align: auto;color: gray;">
+            see at GitHub <img src="images/github.png"  width="25px" height="25px">
+        </a>   
+    </p>
+    
+    <script src="script-traffic.js" type="module"></script>
+</body>
+</html>
+    
