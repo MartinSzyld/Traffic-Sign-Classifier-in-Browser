@@ -96,6 +96,11 @@ function init_script() {
 	canvas.addEventListener("mousedown", setPosition);
 	canvas.addEventListener("mouseenter", setPosition);
 
+	
+	canvas.addEventListener('touchstart', setPosition);
+	canvas.addEventListener('touchmove', draw);
+	canvas.addEventListener('touchend', draw);
+
 	classifyButton = document.getElementById('classify-button');
 	classifyButton.addEventListener("click", classify);
 	clearButton = document.getElementById('clear-button');
