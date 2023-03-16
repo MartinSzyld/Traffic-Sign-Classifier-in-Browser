@@ -45,6 +45,6 @@ input[type='radio'] {
     accent-color: green;
 }
 
-canvas {
+/* canvas {
   touch-action: none;
-}
+} */
