@@ -116,10 +116,10 @@ function handleWritingStart(event) {
 
   function getMosuePositionOnCanvas(e) {
 	var rect = canvas.getBoundingClientRect();
-	pos.x = e.clientX - rect.left;
-	pos.y = e.clientY - rect.top;
-	// const clientX = event.clientX || event.touches[0].clientX;
-	// const clientY = event.clientY || event.touches[0].clientY;
+	const clientX = e.clientX || e.touches[0].clientX;
+	const clientY = e.clientY || e.touches[0].clientY;
+	pos.x = clientX - rect.left;
+	pos.y = clientY - rect.top;
 	// const { offsetLeft, offsetTop } = event.target;
 	// const canvasX = clientX - offsetLeft;
 	// const canvasY = clientY - offsetTop;
