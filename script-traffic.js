@@ -1,4 +1,7 @@
 var canvas, ctx, classifyButton, clearButton, bigImage, copyImageButton;
+const state = {
+	mousedown: false
+  };  
 var pos = {x:0, y:0};
 // rawImage will hold the content of canvas
 var rawImage;
@@ -10,6 +13,19 @@ const CATEGORIES =
 	"Red Danger (!)", "Red Danger Left", "Red Danger Right", "Red Danger Zigzag", "Red Danger Pothole", "Red Danger Slip", "Red Danger Narrow", "Red Danger Working", " danger lights", 
 	"Red Danger Walking", "Red Danger Kids", "Red Danger Bike", "Red Danger Snow", "Red Danger Deer", "Gray Ending", "Blue Right", "Blue Left", "Blue Straight", 
 	"Blue Straight Right", "Blue Straight Left", "Blue Right Down", "Blue Left Down", "Blue Roundabout", "Gray Two Cars", "Gray Truck and Car"];
+
+
+// ===================
+// == Configuration ==
+// ===================
+const lineWidth = 10;
+const halfLineWidth = lineWidth / 2;
+// const fillStyle = '#333';
+// const strokeStyle = '#333';
+const shadowColor = '#333';
+const shadowBlur = lineWidth / 4;
+
+
 
 // copy a crop of bigImage to the canvas, depending on cursor position at event e
 function crop_copy_image(e) {
@@ -43,16 +59,11 @@ function copy_uploaded_image()
 
 // functions for drawing in canvas, adapted from
 // src: https://www.coursera.org/learn/browser-based-models-tensorflow/home/week/2
-function setPosition(e){
-	var rect = canvas.getBoundingClientRect();
-	pos.x = e.clientX - rect.left;
-	pos.y = e.clientY - rect.top;
-}
-function draw(e) {
-	if(e.buttons!=1) return;
-	ctx.beginPath();
-	ctx.lineWidth = 12;
-	ctx.lineCap = 'round';
+// ====================
+// == Event Handlers ==
+// ====================
+function handleWritingStart(event) {
+	
 	const radioButtons = document.querySelectorAll('input[name="color_radio"]');
 	for (const radioButton of radioButtons) {
 		if (radioButton.checked) {
@@ -60,13 +71,86 @@ function draw(e) {
 			break;
 		}
 	}
+
+	event.preventDefault();
+  
+	const mousePos = getMosuePositionOnCanvas(event);
+	
+	ctx.beginPath();
+  
+	ctx.moveTo(mousePos.x, mousePos.y);
+  
+	ctx.lineWidth = lineWidth;
 	ctx.strokeStyle = color;
-	ctx.moveTo(pos.x, pos.y);
-	setPosition(e);
-	ctx.lineTo(pos.x, pos.y);
-	ctx.stroke();
-	rawImage.src = canvas.toDataURL('image/png');
-}
+	ctx.shadowColor = null;
+	ctx.shadowBlur = null;
+  
+	ctx.fill();
+	
+	state.mousedown = true;
+  }
+  
+  function handleWritingInProgress(event) {
+	event.preventDefault();
+	
+	if (state.mousedown) {
+	  const mousePos = getMosuePositionOnCanvas(event);
+  
+	  ctx.lineTo(mousePos.x, mousePos.y);
+	  ctx.stroke();
+	}
+  }
+  
+  function handleDrawingEnd(event) {
+	event.preventDefault();
+	
+	if (state.mousedown) {
+	  ctx.shadowColor = shadowColor;
+	  ctx.shadowBlur = shadowBlur;
+  
+	  ctx.stroke();
+	}
+	
+	state.mousedown = false;
+  }
+
+  function getMosuePositionOnCanvas(e) {
+	var rect = canvas.getBoundingClientRect();
+	pos.x = e.clientX - rect.left;
+	pos.y = e.clientY - rect.top;
+	// const clientX = event.clientX || event.touches[0].clientX;
+	// const clientY = event.clientY || event.touches[0].clientY;
+	// const { offsetLeft, offsetTop } = event.target;
+	// const canvasX = clientX - offsetLeft;
+	// const canvasY = clientY - offsetTop;
+  
+	return { x: pos.x, y: pos.y };
+  }
+
+// function setPosition(e){
+// 	var rect = canvas.getBoundingClientRect();
+// 	pos.x = e.clientX - rect.left;
+// 	pos.y = e.clientY - rect.top;
+// }
+// function draw(e) {
+// 	if(e.buttons!=1) return;
+// 	ctx.beginPath();
+// 	ctx.lineWidth = 12;
+// 	ctx.lineCap = 'round';
+// 	const radioButtons = document.querySelectorAll('input[name="color_radio"]');
+// 	for (const radioButton of radioButtons) {
+// 		if (radioButton.checked) {
+// 			color = radioButton.value;
+// 			break;
+// 		}
+// 	}
+// 	ctx.strokeStyle = color;
+// 	ctx.moveTo(pos.x, pos.y);
+// 	setPosition(e);
+// 	ctx.lineTo(pos.x, pos.y);
+// 	ctx.stroke();
+// 	rawImage.src = canvas.toDataURL('image/png');
+// }
 function clear() {
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,280,280);
@@ -75,6 +159,7 @@ function clear() {
 // predict the content in canvas (global var rawImage) using loaded model, adapted from
 // src: https://www.coursera.org/learn/browser-based-models-tensorflow/home/week/2
 function classify() {
+	rawImage.src = canvas.toDataURL('image/png');
 	var raw = tf.browser.fromPixels(rawImage,3);
 	var resized = tf.image.resizeBilinear(raw, [30,30]);
 	var tensor = resized.expandDims(0);
@@ -92,14 +177,25 @@ function init_script() {
 	ctx = canvas.getContext("2d");
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,280,280);
-	canvas.addEventListener("mousemove", draw);
-	canvas.addEventListener("mousedown", setPosition);
-	canvas.addEventListener("mouseenter", setPosition);
+
+
+	canvas.addEventListener('mousedown', handleWritingStart);
+	canvas.addEventListener('mousemove', handleWritingInProgress);
+	canvas.addEventListener('mouseup', handleDrawingEnd);
+	canvas.addEventListener('mouseout', handleDrawingEnd);
+	
+	canvas.addEventListener('touchstart', handleWritingStart);
+	canvas.addEventListener('touchmove', handleWritingInProgress);
+	canvas.addEventListener('touchend', handleDrawingEnd);
+
+	// canvas.addEventListener("mousemove", draw);
+	// canvas.addEventListener("mousedown", setPosition);
+	// canvas.addEventListener("mouseenter", setPosition);
 
 	
-	canvas.addEventListener('touchstart', setPosition);
-	canvas.addEventListener('touchmove', draw);
-	canvas.addEventListener('touchend', draw);
+	// canvas.addEventListener('touchstart', setPosition);
+	// canvas.addEventListener('touchmove', draw);
+	// canvas.addEventListener('touchend', draw);
 
 	classifyButton = document.getElementById('classify-button');
 	classifyButton.addEventListener("click", classify);
@@ -121,3 +217,40 @@ document.addEventListener('DOMContentLoaded', load_model);
 
 
     
+
+
+// =============
+// == Globals ==
+// =============
+
+// ===================
+// == Configuration ==
+// ===================
+// const lineWidth = 20;
+// const halfLineWidth = lineWidth / 2;
+// const fillStyle = '#333';
+// const strokeStyle = '#333';
+// const shadowColor = '#333';
+// const shadowBlur = lineWidth / 4;
+
+// =====================
+// == Event Listeners ==
+// =====================
+// clearButton.addEventListener('click', handleClearButtonClick);
+
+
+
+// function handleClearButtonClick(event) {
+//   event.preventDefault();
+  
+//   clearCanvas();
+// }
+
+// ======================
+// == Helper Functions ==
+// ======================
+
+
+// function clearCanvas() {
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+// }
