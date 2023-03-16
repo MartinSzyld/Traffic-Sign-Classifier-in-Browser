@@ -44,3 +44,7 @@ span {
 input[type='radio'] {
     accent-color: green;
 }
+
+canvas {
+  touch-action: none;
+}
