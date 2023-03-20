@@ -9,7 +9,7 @@ A single webpage where a pre-trained traffic sign classifier model is loaded usi
  - Making an incorrect prediction:
 ![image](screenshots/Screenshot_walking_wrong.png)
 
-- Drawing on top of incorrect prediction to make model do correct prediction:
+- Drawing on top of incorrect prediction to get model to do correct prediction:
 ![image](screenshots/Screenshot_walking_right.png)
 
 - Drawing a symbol from scratch (just for fun! :)
