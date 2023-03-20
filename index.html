@@ -3,7 +3,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 </head>
-
 <body>
 <div id="big-div">
     <h1>Test a Traffic Sign Classifier in your browser!</h1>
@@ -30,19 +29,12 @@
                             </div>
                         </div>
                         <p style="text-align: center;padding: 0px;">(click marker to change color)</p>    
-                        
-                        
                     </span>
-                    
                 </div>
-                <!-- <div style="padding-top: 0px;"> -->
-                    
-                <!-- </div> -->
             </span>
         </span>
 
         <span class="with_border" style="width: 420px;padding-top: 5px;vertical-align: middle;">
-
             <div style="padding:10px;display: inline-block;">
                 <span>
                     <input style="vertical-align: middle;" type="button" class="button" value="Classify" id="classify-button">
@@ -52,13 +44,11 @@
                 </span>
                 <canvas style="vertical-align: middle;" id="canvas_answer" class="with_border" width="140" height="140"></canvas>
             </div>
-
             <div style="padding: 0px 20px;">
                 <p id="prediction" class="with_border rounded highlighted" style="width: 350px;">
                     Prediction will appear here.
                 </p>
             </div>
-
             <h3 style="text-align: center;"> 
                 Click on the image below to copy that traffic sign to the canvas, then click "Classify". <br>
                 You can also draw on the picture.
@@ -78,9 +68,7 @@
     <div style="padding-left:10px;padding-bottom: 10px;">
         <div class="with_border rounded" style="width: 80%;max-width: 650px;">
             <h3>You can also upload any image and then copy it to the canvas:</h3>
-            
             <p></p>
-            
             <div>         
                 <input type='file' class="button"/>
                 <img class="image" id="myImg" src="#"  width="80" height="80">
@@ -98,10 +86,8 @@
             see at GitHub <img src="images/github.png"  width="25px" height="25px">
         </a>   
     </p>
-
 </div>
-    
-    <script src="script-traffic.js" type="module"></script>
+<script src="script-traffic.js" type="module"></script>
 </body>
 </html>
     
