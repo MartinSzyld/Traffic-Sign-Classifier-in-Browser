@@ -247,6 +247,9 @@ function click(e) {
   y = e.offsetY;
   var imageData = ctx2.getImageData(x, y, 1, 1).data;
   rgbaColor = 'rgba(' + imageData[0] + ',' + imageData[1] + ',' + imageData[2] + ',1)';
+  colorAsArray = [imageData[0],imageData[1],imageData[2],1];
+  var mixed_color = mixTwoRgba([colorAsArray,[125, 125, 125, 0.5]]);
+  colorLabel.style.background = `linear-gradient(${rgbaColor}, ${mixed_color}, ${rgbaColor})`;
   fillGradient();
 }
 
