@@ -38,13 +38,82 @@ body {
 
 span {
     display: inline-block;
-    vertical-align: top;
 }
+
+/* div > * {
+  vertical-align:middle;
+} */
 
 input[type='radio'] {
     accent-color: green;
 }
 
 /* canvas {
-  touch-action: none;
-} */
+  padding-bottom: 40px;
+}  */
+
+#color-input {
+  display: none;
+}
+#color-label {
+  /* width: 60px;
+  height: 25px;
+  margin-left: 15px; */
+  /* position: absolute; */
+  top: 365px;
+  left: 55px;
+  /* height: 30px;
+  width: 50px; */
+} 
+#color-input:checked ~ #color-picker {
+  display: block;
+  /* opacity: 1; */
+}
+#color-picker {
+  position: absolute;
+  left: 70px; 
+  top: 30px;
+  background-color: white;
+  height: 150px;
+  width: 185px;
+  border: solid 1px green;
+  /* opacity: 0; */
+  display: none;
+  padding: 5px;
+}
+canvas:hover {
+  cursor: crosshair;
+}
+
+
+
+
+/* Markers */
+
+.marker {
+  /* position: absolute; */
+  width: 200px;
+  height: 25px;
+  margin: 10px auto;
+}
+
+.cap {
+  width: 60px;
+  height: 25px;
+}
+
+.sleeve {
+  width: 110px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-left: 10px double rgba(0, 0, 0, 0.75);
+}
+
+.cap, .sleeve {
+  display: inline-block;
+}
+
+.red {
+  /* background: linear-gradient(rgb(122, 74, 14), rgb(245, 62, 113), rgb(162, 27, 27)); */
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.8);
+}

@@ -5,47 +5,64 @@
 </head>
 
 <body>
+<div id="big-div">
     <h1>Test a Traffic Sign Classifier in your browser!</h1>
     
-    <div>
-        <span style="padding:10px;">
-            <canvas id="canvas" class="with_border" width="280" height="280"></canvas>
+    <div style="display: inline-block;padding-left: 10px;">
+        <span style="padding-right:20px">
+            <span style="padding:10px 10px 0px 10px;vertical-align: middle;" class="with_border">
+                <div>
+                    <canvas id="canvas"  width="280" height="280"></canvas>
+                </div>
+                <div>
+                    <span  style="padding: 0px 40px;">
+                        <div style="position: relative;">
+                            <label  for="color-input" >
+                                <div class="marker" id="color-label">
+                                    <div class="cap" ></div>
+                                    <div class="sleeve"></div> 
+                                </div>
+                            </label>
+                            <input type="checkbox" id="color-input"></input>     
+                            <div id="color-picker">
+                                <canvas id="color-block" height="150" width="150"></canvas>
+                                <canvas id="color-strip" height="150" width="30"></canvas>
+                            </div>
+                        </div>
+                        <p style="text-align: center;padding: 0px;">(click marker to change color)</p>    
+                        
+                        
+                    </span>
+                    
+                </div>
+                <!-- <div style="padding-top: 0px;"> -->
+                    
+                <!-- </div> -->
+            </span>
         </span>
 
-        <span style="max-width: 700px;padding-top: 5px;">
+        <span class="with_border" style="width: 420px;padding-top: 5px;vertical-align: middle;">
 
-            <h3 style="text-align: center;"> 
-                Click on the image below to copy that traffic sign to the canvas. 
-                <br> Then click the classify button. 
-            </h3>
-
-            <p id="prediction" class="with_border rounded highlighted" style="width: 550px;">
-                 Prediction will appear here.
-            </p>
-
-            <div style="padding:10px 0;">
+            <div style="padding:10px;display: inline-block;">
                 <span>
-                    <input type="button" class="button" value="Classify" id="classify-button">
+                    <input style="vertical-align: middle;" type="button" class="button" value="Classify" id="classify-button">
                 </span>
-                <span style="padding-left: 10px;">
+                <span style="padding-left: 10px;padding-right: 10px;vertical-align: middle;">
                     <input type="button" class="button" value="Clear" id="clear-button">
                 </span>
+                <canvas style="vertical-align: middle;" id="canvas_answer" class="with_border" width="140" height="140"></canvas>
             </div>
 
-            <p class="with_border rounded" style="width: 560px;text-align: center;"> You can also draw with a color:
-                <input type="radio" id="red" name="color_radio" value="red" checked>
-                <label for="red">Red</label>
-                <input type="radio" id="blue" name="color_radio" value="blue">
-                <label for="blue">Blue</label>
-                <input type="radio" id="black" name="color_radio" value="black">
-                <label for="black">Black</label>
-                <input type="radio" id="green" name="color_radio" value="green">
-                <label for="green">Green</label>
-                <input type="radio" id="white" name="color_radio" value="white">
-                <label for="white">White</label>
-            </p>
+            <div style="padding: 0px 20px;">
+                <p id="prediction" class="with_border rounded highlighted" style="width: 350px;">
+                    Prediction will appear here.
+                </p>
+            </div>
 
-
+            <h3 style="text-align: center;"> 
+                Click on the image below to copy that traffic sign to the canvas, then click "Classify". <br>
+                You can also draw on the picture.
+            </h3>
         </span>
     </div>
 
@@ -53,6 +70,7 @@
 
     <div style="padding:10px;">
         <img id="img-43-classes" src="images/GTSRB-43-classes.jpg"  class="with_border" width="867" height="495">
+    	<img hidden id="img-43-answers" src="images/43-answers.png">
     </div>
 
     <p></p>
@@ -80,6 +98,8 @@
             see at GitHub <img src="images/github.png"  width="25px" height="25px">
         </a>   
     </p>
+
+</div>
     
     <script src="script-traffic.js" type="module"></script>
 </body>
